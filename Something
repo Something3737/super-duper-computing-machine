@@ -1,0 +1,27 @@
+from flask import Flask, render_template, jsonify
+
+app = Flask(__name__)
+
+# Mock data for descriptions and actual image URLs
+descriptions = ["A person with glasses and a hat.", "A smiling person with long hair."]
+actual_images = ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/get_description')
+def get_description():
+    # Fetch a random description (you might want to implement a more sophisticated logic)
+    random_description = descriptions[0]
+    return jsonify({'description': random_description})
+
+@app.route('/get_actual_image/<int:index>')
+def get_actual_image(index):
+    # Fetch the actual image URL based on the index
+    actual_image_url = actual_images[index]
+    return jsonify({'actual_image_url': actual_image_url})
+
+if __name__ == '__main__':
+    # Run the app on port 3000
+    app.run(port=3000)
